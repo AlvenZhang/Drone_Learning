@@ -1,0 +1,10 @@
+[project]
+name = "drone-learning"
+version = "0.1.0"
+description = "无人机学习项目 - 学习无人机相关知识和编程"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.20.0",
+    "matplotlib>=3.4.0",
+]
