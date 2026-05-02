@@ -102,6 +102,11 @@ class Quadcopter:
         km = 0.1  # 力矩系数
         l = self.arm_length
 
+        # 电机限幅：不能为负，也不能过大
+        motor_min = 0.0
+        motor_max = 2 * self.mass * self.g  # 最大总推力约为 2 倍重力
+        motor_speeds_sq = np.clip(motor_speeds_sq, motor_min, motor_max / 4.0)
+
         # 计算每个电机的推力
         thrusts = kf * motor_speeds_sq
 
