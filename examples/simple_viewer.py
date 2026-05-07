@@ -195,8 +195,14 @@ def main():
         gx_val, gy_val, gz_val = 0, 0, 0
 
         try:
-            while ser.in_waiting > 0:
+            # 最多读10行，防止因为某一行不完整导致整帧丢了
+            read_attempts = 0
+            while (ser.in_waiting > 0 or read_attempts < 3) and read_attempts < 10:
+                read_attempts += 1
                 line_bytes = ser.readline()
+                if len(line_bytes) == 0:
+                    continue  # 空行跳过
+
                 line = line_bytes.decode('utf-8', errors='ignore').strip()
                 data = line.split(',')
                 if len(data) == 6:
